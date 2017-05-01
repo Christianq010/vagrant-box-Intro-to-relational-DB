@@ -41,6 +41,13 @@ We're using tools called Vagrant and VirtualBox to install and manage the VM. Yo
 * Private key: C:/Users/Christiaan/PhpstormProjects/Udacity Full Stack Nanodegree/Setting up VM/fullstack-nanodegree-vm/vagrant/.vagrant/machines/default/virtualbox
 /private_key
 
+### Running the Database
+* The PostgreSQL database server will automatically be started inside the VM.
+ * Run `psql` inside the VM command-line tool to access it and run SQL statements: eg. `select 2 + 2 as sum;`
+
+### Logging out and in
+* If you type `exit` (or `Ctrl-D`) at the shell prompt inside the VM, you will be logged out, and put back into your host computer's shell. To log back in, make sure you're in the same directory and type `vagrant ssh` again.
+* If you reboot your computer, you will need to run `vagrant up` to restart the VM.
 
 
 ### Resources
