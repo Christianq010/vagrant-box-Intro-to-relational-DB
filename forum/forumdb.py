@@ -24,6 +24,8 @@ def add_post(content):
   """Add a post to the 'database' with the current timestamp."""
   db = psycopg2.connect("dbname=forum")
   c = db.cursor()
-  c.execute("INSERT INTO posts (content) VALUES ('%s')" % content)
+  # IMPORTANT: When using Insert, use query paramaters instead of String substituition 
+  c.execute("INSERT INTO posts (content) VALUES (%s)",
+            (content, ))
   db.commit()
   db.close()
