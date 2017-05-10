@@ -3,6 +3,7 @@
 # Step 2 - Class
 # Step 3 - Mapper
 
+import os
 import sys
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
@@ -15,12 +16,13 @@ Base = declarative_base()
 class Restaurant(Base):
     __tablename__ = 'restaurant'
 
-    name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+
 
 
 class MenuItem(Base):
-    __table__ = 'menu_item'
+    __tablename__ = 'menu_item'
 
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
