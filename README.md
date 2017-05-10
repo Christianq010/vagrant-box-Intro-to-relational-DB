@@ -44,6 +44,8 @@ We're using tools called Vagrant and VirtualBox to install and manage the VM. Yo
 
 ### Logging out and in
 * If you type `exit` (or `Ctrl-D`) at the shell prompt inside the VM, you will be logged out, and put back into your host computer's shell. To log back in, make sure you're in the same directory and type `vagrant ssh` again.
+* To exit Vagrant after the test simply type `logout`
+* To stop Vagrant running in the background when done type `vagrant halt`
 * If you reboot your computer, you will need to run `vagrant up` to restart the VM.
 
 
