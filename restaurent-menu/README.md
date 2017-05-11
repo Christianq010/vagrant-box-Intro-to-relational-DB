@@ -61,3 +61,25 @@ Type "help", "copyright", "credits" or "license" for more information.
 [<database_setup.MenuItem object at 0xb696bcec>]
 >>>
 ```
+
+### 2.CRUD Read (Reading our data in the database)
+* We can save our session query into a variable and reference it
+```
+>>> firstResult = session.query(Restaurant).first()
+>>> firstResult.name
+u'Pizza Place'
+>>>
+```
+* Execute the `lotsofmenus.py` file by running it in vagrant via `python lotsofmenus.py`
+* Return all added entries by running the following -
+```
+>>> session.query(Restaurant).all()
+```
+* Return results with column info for each item as well ( using Python Loop)
+```
+>>>items = session.query(MenuItems).all()
+>>> for item in items:
+        print item.name
+
+```
+* Look up the query documentation for SQLAlchemy here - http://docs.sqlalchemy.org/en/rel_0_9/orm/query.html
