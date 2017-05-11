@@ -77,9 +77,46 @@ u'Pizza Place'
 ```
 * Return results with column info for each item as well ( using Python Loop)
 ```
->>>items = session.query(MenuItems).all()
+>>> items = session.query(MenuItems).all()
 >>> for item in items:
         print item.name
 
 ```
 * Look up the query documentation for SQLAlchemy here - http://docs.sqlalchemy.org/en/rel_0_9/orm/query.html
+
+### 3.CRUD Update (Update existing data in our database to new values)
+* Create a variable to return the value we would like to update
+```
+>>> veggieburgers = session.query(MenuItem).filter_by(name = 'Veggie Burger')
+```
+* Create a for-loop to return each veggie burger
+```
+>>> for veggieBurger in veggieBurgers:
+        print veggieBurger.id
+        print veggieBurger.price
+        prine veggieBurger.restaurant.name
+        print "\n"
+```
+* Select a specific Result from our results (.one chooses that item instead of a list)
+```
+>>> UrbanVeggieBurger = session.query(MenuItem).filter_by(id=8).one()
+```
+* Check if we selected the right item
+` >>> print UrbanVeggieBurger.price`
+* Change the price of our selected item
+```
+>>> UrbanVeggieBurger.price = '$2.99'
+>>> session.add(urbanVeggieBurger)
+>>> session.commit()
+```
+* Run the for-loop above to check each Veggie burger and if our update has been made.
+* Use a for-loop to change price on all veggie Burgers burgers in our database.
+```
+>>> for veggieBurger in veggieBurgers:
+        if veggieBurger.price != '$2.99':
+            veggieBurger.price = '$2.99'
+            session.add(veggieBurger)
+            session.commit()
+```
+* Run a for-loop to return all veggie burgers and check their price.
+* Check documentation for more info - http://docs.sqlalchemy.org/en/rel_0_9/orm/query.html
