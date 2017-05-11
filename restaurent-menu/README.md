@@ -120,3 +120,16 @@ u'Pizza Place'
 ```
 * Run a for-loop to return all veggie burgers and check their price.
 * Check documentation for more info - http://docs.sqlalchemy.org/en/rel_0_9/orm/query.html
+
+### 4.CRUD Delete (Delete a selected entry in our database)
+* Create a variable to return the value to delete
+`>>> spinach = session.query(MenuItem).filter_by(name = 'Spinach Ice Cream').one()`
+* Check if we selected the correct variable
+`>>> print spinach.restaurant.name`
+* Delete the selected entry
+```
+>>> session.delete(spinach)
+>>> session.commit()
+```
+* Search for value to check if it still exists
+`>>> spinach = session.query(MenuItem).filter_by(name = 'Spinach Ice Cream').one()`
