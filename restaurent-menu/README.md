@@ -123,7 +123,9 @@ u'Pizza Place'
 
 ### 4.CRUD Delete (Delete a selected entry in our database)
 * Create a variable to return the value to delete
-`>>> spinach = session.query(MenuItem).filter_by(name = 'Spinach Ice Cream').one()`
+```
+>>> spinach = session.query(MenuItem).filter_by(name = 'Spinach Ice Cream').one()
+```
 * Check if we selected the correct variable
 `>>> print spinach.restaurant.name`
 * Delete the selected entry
@@ -132,4 +134,18 @@ u'Pizza Place'
 >>> session.commit()
 ```
 * Search for value to check if it still exists
-`>>> spinach = session.query(MenuItem).filter_by(name = 'Spinach Ice Cream').one()`
+```
+>>> spinach = session.query(MenuItem).filter_by(name = 'Spinach Ice Cream').one()
+```
+
+### Operations with SQLAlchemy
+* To straightway start CRUD operations with our virtual machine run the following code from a python shell first -
+```
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from database_setup import Base, Restaurant, MenuItem
+engine = create_engine('sqlite:///restaurantMenu.db')
+Base.metadata.bind=engine
+DBSession = sessionmaker(bind = engine)
+session = DBSession()
+```
