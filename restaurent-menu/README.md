@@ -1,3 +1,5 @@
+# Performing CRUD Operations in Full Stack Foundations
+
 ## How to install SQLAlchemy (Python ORM)
 * Download and extract (http://www.sqlalchemy.org/download.html).
 * Open Gitbash from the extracted download and run `python setup.py install`
@@ -13,7 +15,7 @@ Plain-Python build succeeded.
 
 ```
 
-### CRUD create ( Add data to a Database)
+### 1.CRUD create ( Add data to a Database)
 * Log into the Vagrant and `cd` into the `/vagrant` folder
 * Run a python shell (`python`) and import the following statements -
 
@@ -28,18 +30,18 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> from database_setup import Base,Restaurant,MenuItem
 ```
 
-* Remain in the python shell and create the functions below configure our communication with the database
+* Remain in the python shell and create the functions below to configure our communication with the database
 * We create an engine configured to our code execution
 ```
 >>> engine = create_engine ('sqlite:///restaurantmenu.db')
 >>> Base.metadata.bind = engine
 >>> DBSession = sessionmaker(bind = engine)
 ```
-* We create a session and no changes are made to the database until the session has been staged and committed
+* We create a session, the purpose of this ensures no changes are made to the database until the data added has been staged and committed from the session.
 ```
 >>> session = DBSession()
 ```
-* Our first entry into the database (a restaurant)
+* Our first entry into the database (Restaurant)
 ```
 >>> myFirstRestaurant = Restaurant(name = "Pizza Place")
 >>> session.add(myFirstRestaurant)
