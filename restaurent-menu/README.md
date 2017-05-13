@@ -1,7 +1,7 @@
 # Performing CRUD Operations in Full Stack Foundations
 
 * We first Setup `database_setup.py` with relevant classes, importing the data types we need and setting up the `declarative_base` and `engine`.
-* Our classes in `database_setup.py` also need to define our tablename using SQLAlchemy syntax. 
+* Our classes in `database_setup.py` also need to define our tablename using SQLAlchemy syntax.
 
 ## How to install SQLAlchemy (Python ORM)
 * Download and extract (http://www.sqlalchemy.org/download.html).
@@ -152,3 +152,9 @@ Base.metadata.bind=engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
 ```
+
+### Notes
+----
+#### Primary Key / Foreign Keys in Relational DBs
+* In the context of relational databases, a foreign key is a field (or collection of fields) in one table that uniquely identifies a row of another table or the same table.
+* In simpler words, the foreign key is defined in a second table, but it refers to the primary key in the first table.
