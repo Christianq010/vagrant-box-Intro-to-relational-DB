@@ -1,5 +1,8 @@
 # Performing CRUD Operations in Full Stack Foundations
 
+* We first Setup `database_setup.py` with relevant classes, importing the data types we need and setting up the `declarative_base` and `engine`.
+* Our classes in `database_setup.py` also need to define our tablename using SQLAlchemy syntax. 
+
 ## How to install SQLAlchemy (Python ORM)
 * Download and extract (http://www.sqlalchemy.org/download.html).
 * Open Gitbash from the extracted download and run `python setup.py install`
@@ -15,7 +18,7 @@ Plain-Python build succeeded.
 
 ```
 
-### 1.CRUD create ( Add data to a Database)
+### 1.CRUD create (Add data to a Database)
 * Log into the Vagrant and `cd` into the `/vagrant` folder
 * Run a python shell (`python`) and import the following statements -
 
