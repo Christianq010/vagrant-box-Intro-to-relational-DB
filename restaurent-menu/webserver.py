@@ -5,12 +5,12 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 # Handler indicates what code to execute depending on what type of HTTP request it gets
 class webserverHandler(BaseHTTPRequestHandler):
     # Handle get requests the web server receives
-    def do_Get(self):
+    def do_GET(self):
         try:
             # if statement looks for the URL with /hello
             if self.path.endswith("/hello"):
                 # webserver then sends response code of 200 (successful get request)
-                self.send_reponse(200)
+                self.send_response(200)
                 # Indicate we are replying with text in the form of html to client
                 self.send_header('Content-type', 'text/html')
                 # Send a blank line to indicate the end of out http header
@@ -41,9 +41,9 @@ def main():
 
     # Trigger when user types ctrl+c on keyboard
     except KeyboardInterrupt:
-        print "^C entered, stopping web server... "
+        print " ^C entered, stopping web server... "
         server.socket.close()
 
 # Immediately run main() when python executes Script
-if __name__== '__main__':
+if __name__ == '__main__':
     main()
