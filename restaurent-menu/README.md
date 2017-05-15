@@ -153,6 +153,11 @@ DBSession = sessionmaker(bind = engine)
 session = DBSession()
 ```
 
+### Running the WebServer
+* On the virtual machine `cd` to the directory containing the file `webserver.py` and run `python webserver.py`
+* By default it is configured to serve on http://localhost:8080/hello on your browser.
+
+
 ### Notes
 ----
 #### Primary Key / Foreign Keys in Relational DBs
