@@ -3,11 +3,39 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import cgi
 
+# import CRUD Operations from Lesson 1
+from database_setup import Base, Restaurant, MenuItem
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+# create Session and connect to DB
+engine = create_engine('sqlite:///restaurantMenu.db')
+Base.metadata.bind=engine
+DBSession = sessionmaker(bind = engine)
+session = DBSession()
+
 # Handler indicates what code to execute depending on what type of HTTP request it gets
 class webserverHandler(BaseHTTPRequestHandler):
     # Handle GET requests the web server receives
     def do_GET(self):
         try:
+            if self.path.endswith("/restaurants"):
+                # Our query to list out all restaurants in the DB
+                restaurants = session.query(Restaurant).all()
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                output = ""
+                output += "<html><body>"
+                # Add a for-loop to list out all restaurants
+                for restaurant in restaurants:
+                    output += restaurant.name
+                    output += "<br>"
+                output += "<html><body>"
+                self.wfile.write(output)
+                return
+
+
             # if statement looks for the URL with /hello
             if self.path.endswith("/hello"):
                 # webserver then sends response code of 200 (successful get request)
