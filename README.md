@@ -43,6 +43,7 @@ We're using tools called Vagrant and VirtualBox to install and manage the VM. Yo
  * Run `psql` inside the VM command-line tool to access it and run SQL statements: eg. `select 2 + 2 as sum;`
 
 ### Logging out and in
+* Run `vagrant reload` if you edit the Vagrant file or make other changes to code that would affect the virtual machine.
 * If you type `exit` (or `Ctrl-D`) at the shell prompt inside the VM, you will be logged out, and put back into your host computer's shell. To log back in, make sure you're in the same directory and type `vagrant ssh` again.
 * To exit Vagrant after the test simply type `logout`
 * To stop Vagrant running in the background when done type `vagrant halt`
