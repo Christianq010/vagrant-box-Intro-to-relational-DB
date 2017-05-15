@@ -26,6 +26,19 @@ class webserverHandler(BaseHTTPRequestHandler):
                 # exit if statement with return
                 return
 
+            # Add another page(/hola) to our web server for testing
+            if self.path.endswith("/hola"):
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+
+                output = ""
+                # add a tag to redirect to /hello page
+                output += "<html><body>&#161Hola, hombre! <a href ='/hello'> back to Hello </a>'</body></html>"
+                self.wfile.write(output)
+                print output
+                return
+
         except IOError:
             # our exception to indicate us of IO errors
             self.send_error(404, "File Not Found %s" % self.path)
