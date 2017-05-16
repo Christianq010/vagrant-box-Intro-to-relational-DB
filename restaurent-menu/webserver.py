@@ -38,26 +38,26 @@ class webserverHandler(BaseHTTPRequestHandler):
             if self.path.endswith("/edit"):
                 # 3rd Value of this array contains our ID Number
                 restaurantIDPath = self.path.split("/")[2]
-                # Grab the restaurant entry equal to the ID in the URL
-                myRestaurantQuery = session.query(Restaurant).filter_by(id = restaurantIDPath).one()
-            # If we find the query generate a response in the page
-            if myRestaurantQuery != [] :
-                self.send_response(200)
-                self.send_header('Content-type', 'text/html')
-                self.end_headers()
-                output = "<html><body>"
-                output += "<h1>"
-                output += myRestaurantQuery.name
-                output += "</h1>"
-                # Create a form with one field for restaurant name
-                # pass the ID as URL for the edit
-                output += "<form method='POST' enctype='multipart/form-data' action = '/restaurants/%s/edit' >" % restaurantIDPath
-                output += "<input name = 'newRestaurantName' type='text' placeholder = '%s' >" % myRestaurantQuery.name
-                output += "<input type = 'submit' value = 'Rename'>"
-                output += "</form>"
-                output += "</body></html>"
+                # Grab the restaurant entry equal to the ID in the URL using a query
+                myRestaurantQuery = session.query(Restaurant).filter_by(id = restaurantIDPath).one_or_none()
+                # If we find the query generate a response in the page
+                if myRestaurantQuery:
+                    self.send_response(200)
+                    self.send_header('Content-type', 'text/html')
+                    self.end_headers()
+                    output = "<html><body>"
+                    output += "<h1>"
+                    output += myRestaurantQuery.name
+                    output += "</h1>"
+                    # Create a form with one field for restaurant name
+                    # pass the ID as URL for the edit
+                    output += "<form method='POST' enctype='multipart/form-data' action = '/restaurants/%s/edit' >" % restaurantIDPath
+                    output += "<input name = 'newRestaurantName' type='text' placeholder = '%s' >" % myRestaurantQuery.name
+                    output += "<input type = 'submit' value = 'Rename'>"
+                    output += "</form>"
+                    output += "</body></html>"
 
-                self.wfile.write(output)
+                    self.wfile.write(output)
 
 
             if self.path.endswith("/restaurants"):
@@ -65,18 +65,19 @@ class webserverHandler(BaseHTTPRequestHandler):
                 restaurants = session.query(Restaurant).all()
                 # Add New Restaurants Page link
                 output = ""
-                output += "<a href='/restaurants/new'>Make a New Restaurant </a></br></br>"
+                output += "<a href='/restaurants/new'> Make a New Restaurant </a></br></br>"
+
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
-                output = ""
+
                 output += "<html><body>"
                 # Add a for-loop to list out all restaurants
                 for restaurant in restaurants:
                     output += restaurant.name
                     output += "<br>"
                     # Add our edit and delete functionality
-                    output += "<a href='/restaurants/%s/edit'>Edit</a>"
+                    output += "<a href='/restaurants/%s/edit'>Edit</a>" % restaurant.id
                     output += "<br>"
                     output += "<a href='#'>Delete</a>"
                     output += "<br>"
@@ -101,7 +102,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                     restaurantIDPath = self.path.split("/")[2]
 
                     # Perform query to find the object with our matching ID
-                    myRestaurantQuery = session.query(Restaurant).filter_by(id=restaurantIDPath).one()
+                    myRestaurantQuery = session.query(Restaurant).filter_by(id=restaurantIDPath).one_or_none()
                     # Reset name to our edit and commit session to DB
                     if myRestaurantQuery != []:
                         myRestaurantQuery.name = messagecontent[0]
