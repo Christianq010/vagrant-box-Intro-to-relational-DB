@@ -159,6 +159,9 @@ session = DBSession()
 
 
 ### Notes
+* The file `basic_webserver.py` contains all code with instructions to getting a basic server with python started up.
+
+
 ----
 #### Primary Key / Foreign Keys in Relational DBs
 * In the context of relational databases, a foreign key is a field (or collection of fields) in one table that uniquely identifies a row of another table or the same table.
