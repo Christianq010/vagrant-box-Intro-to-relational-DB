@@ -160,7 +160,7 @@ session = DBSession()
 
 ### Notes
 * The file `basic_webserver.py` contains all code with instructions to getting a basic server with python started up.
-
+* Using `.split()` on python - in `webserver.py` we use `.split(/)` which breaks/separates the string at each `/` and then assigns each value it an index number in an array 0,1,2,3 ..
 
 ----
 #### Primary Key / Foreign Keys in Relational DBs
