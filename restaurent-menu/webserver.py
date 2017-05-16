@@ -19,9 +19,28 @@ class webserverHandler(BaseHTTPRequestHandler):
     # Handle GET requests the web server receives
     def do_GET(self):
         try:
+            # Our Add New Restaurants Page
+            if self.path.endswith("/restaurants/new"):
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                output = ""
+                output += "<html><body>"
+                output += "<h1>Make a New Restaurant</h1>"
+                output += "<form method = 'POST' enctype='multipart/form-data' action = '/restaurants/new'>"
+                output += "<input name = 'newRestaurantName' type = 'text' placeholder = 'New Restaurant Name' > "
+                output += "<input type='submit' value='Create'>"
+                output += "</form></body></html>"
+                self.wfile.write(output)
+                return
+
+
             if self.path.endswith("/restaurants"):
                 # Our query to list out all restaurants in the DB
                 restaurants = session.query(Restaurant).all()
+                # Add New Restaurants Page link
+                output = ""
+                output += "<a href='/restaurants/new'>Make a New Restaurant </a><br><br>"
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
@@ -35,6 +54,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                     output += "<a href='#'>Edit</a>"
                     output += "<br>"
                     output += "<a href='#'>Delete</a>"
+                    output += "<br>"
                 output += "<html><body>"
                 self.wfile.write(output)
                 return
