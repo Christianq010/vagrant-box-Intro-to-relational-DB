@@ -34,13 +34,38 @@ class webserverHandler(BaseHTTPRequestHandler):
                 self.wfile.write(output)
                 return
 
+            # Look for /edit in our URL
+            if self.path.endswith("/edit"):
+                # 3rd Value of this array contains our ID Number
+                restaurantIDPath = self.path.split("/")[2]
+                # Grab the restaurant entry equal to the ID in the URL
+                myRestaurantQuery = session.query(Restaurant).filter_by(id = restaurantIDPath).one()
+            # If we find the query generate a response in the page
+            if myRestaurantQuery != [] :
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                output = "<html><body>"
+                output += "<h1>"
+                output += myRestaurantQuery.name
+                output += "</h1>"
+                # Create a form with one field for restaurant name
+                # pass the ID as URL for the edit
+                output += "<form method='POST' enctype='multipart/form-data' action = '/restaurants/%s/edit' >" % restaurantIDPath
+                output += "<input name = 'newRestaurantName' type='text' placeholder = '%s' >" % myRestaurantQuery.name
+                output += "<input type = 'submit' value = 'Rename'>"
+                output += "</form>"
+                output += "</body></html>"
+
+                self.wfile.write(output)
+
 
             if self.path.endswith("/restaurants"):
                 # Our query to list out all restaurants in the DB
                 restaurants = session.query(Restaurant).all()
                 # Add New Restaurants Page link
                 output = ""
-                output += "<a href='/restaurants/new'>Make a New Restaurant </a><br><br>"
+                output += "<a href='/restaurants/new'>Make a New Restaurant </a></br></br>"
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
@@ -51,7 +76,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                     output += restaurant.name
                     output += "<br>"
                     # Add our edit and delete functionality
-                    output += "<a href='#'>Edit</a>"
+                    output += "<a href='/restaurants/%s/edit'>Edit</a>"
                     output += "<br>"
                     output += "<a href='#'>Delete</a>"
                     output += "<br>"
@@ -103,6 +128,28 @@ class webserverHandler(BaseHTTPRequestHandler):
     # Handle POST requests the web server receives
     def do_POST(self):
         try:
+            # POST response for our edit form
+            if self.path.endswith("/edit"):
+                ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+                if ctype == 'multipart/form-data':
+                    fields = cgi.parse_multipart(self.rfile, pdict)
+                    messagecontent = fields.get('newRestaurantName')
+                    restaurantIDPath = self.path.split("/")[2]
+
+                    # Perform query to find the object with our matching ID
+                    myRestaurantQuery = session.query(Restaurant).filter_by(id=restaurantIDPath).one()
+                    # Reset name to our edit and commit session to DB
+                    if myRestaurantQuery != []:
+                        myRestaurantQuery.name = messagecontent[0]
+                        session.add(myRestaurantQuery)
+                        session.commit()
+                        self.send_response(301)
+                        self.send_header('Content-type', 'text/html')
+                        # Add re-direct to restaurants page after edit
+                        self.send_header('Location', '/restaurants')
+                        self.end_headers()
+
+
             # if statement looking for restaurants/new
             if self.path.endswith("/restaurants/new"):
                 ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
