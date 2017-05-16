@@ -59,6 +59,25 @@ class webserverHandler(BaseHTTPRequestHandler):
 
                     self.wfile.write(output)
 
+            # Our Delete page when our user clicks delete to confirm deletion process
+            if self.path.endswith("/delete"):
+                restaurantIDPath = self.path.split("/")[2]
+
+                myRestaurantQuery = session.query(Restaurant).filter_by(id=restaurantIDPath).one_or_none()
+                if myRestaurantQuery:
+                    self.send_response(200)
+                    self.send_header('Content-type', 'text/html')
+                    self.end_headers()
+                    output = ""
+                    output += "<html><body>"
+                    output += "<h1>Are you sure you want to delete %s?" % myRestaurantQuery.name
+                    # Add our post form that contains the button element to confirm the delete
+                    output += "<form method='POST' enctype = 'multipart/form-data' action = '/restaurants/%s/delete'>" % restaurantIDPath
+                    output += "<input type = 'submit' value = 'Delete'>"
+                    output += "</form>"
+                    output += "</body></html>"
+                    self.wfile.write(output)
+
 
             if self.path.endswith("/restaurants"):
                 # Our query to list out all restaurants in the DB
@@ -76,10 +95,10 @@ class webserverHandler(BaseHTTPRequestHandler):
                 for restaurant in restaurants:
                     output += restaurant.name
                     output += "<br>"
-                    # Add our edit and delete functionality
+                    # Direct to our edit and delete pages
                     output += "<a href='/restaurants/%s/edit'>Edit</a>" % restaurant.id
                     output += "<br>"
-                    output += "<a href='#'>Delete</a>"
+                    output += "<a href='/restaurants/%s/delete'>Delete</a>" % restaurant.id
                     output += "<br>"
                 output += "<html><body>"
                 self.wfile.write(output)
@@ -114,6 +133,17 @@ class webserverHandler(BaseHTTPRequestHandler):
                         self.send_header('Location', '/restaurants')
                         self.end_headers()
 
+            # POST response for our DELETE button
+            if self.path.endswith("/delete"):
+                restaurantIDPath = self.path.split("/")[2]
+                myRestaurantQuery = session.query(Restaurant).filter_by(id=restaurantIDPath).one()
+                if myRestaurantQuery:
+                    session.delete(myRestaurantQuery)
+                    session.commit()
+                    self.send_response(301)
+                    self.send_header('Content-type', 'text/html')
+                    self.send_header('Location', '/restaurants')
+                    self.end_headers()
 
             # if statement looking for restaurants/new
             if self.path.endswith("/restaurants/new"):
