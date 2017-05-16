@@ -85,42 +85,6 @@ class webserverHandler(BaseHTTPRequestHandler):
                 return
 
 
-            # if statement looks for the URL with /hello
-            if self.path.endswith("/hello"):
-                # webserver then sends response code of 200 (successful get request)
-                self.send_response(200)
-                # Indicate we are replying with text in the form of html to client
-                self.send_header('Content-type', 'text/html')
-                # Send a blank line to indicate the end of out http header
-                self.end_headers()
-
-                # Create empty string (output), add msg to it
-                output = ""
-                output = "<html><body>"
-                output += "<h2>Hello, world!</h2>"
-                # Add form
-                output += '''<form method='POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2><input name="message" type="text" ><input type="submit" value="Submit"> </form>'''
-                output += "</body></html>"
-                # send our msg(output) back to the client
-                self.wfile.write(output)
-                # Add print to see output on our terminal
-                print output
-                # exit if statement with return
-                return
-
-            # Add another page(/hola) to our web server for testing
-            if self.path.endswith("/hola"):
-                self.send_response(200)
-                self.send_header('Content-type', 'text/html')
-                self.end_headers()
-
-                output = ""
-                # add a tag to redirect to /hello page
-                output += "<html><body>&#161Hola, hombre! <a href ='/hello'> back to Hello </a>'</body></html>"
-                self.wfile.write(output)
-                print output
-                return
-
         except IOError:
             # our exception to indicate us of IO errors
             self.send_error(404, "File Not Found %s" % self.path)
