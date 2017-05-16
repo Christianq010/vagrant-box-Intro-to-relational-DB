@@ -103,30 +103,25 @@ class webserverHandler(BaseHTTPRequestHandler):
     # Handle POST requests the web server receives
     def do_POST(self):
         try:
-            # self.send_response(301)
-            # self.send_header('Content-type', 'text/html')
-            # self.end_headers()
-            # # To read the message sent from the server we use the cgi python library
-            # # cgi.parse_header to 'content-type'
-            # ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
-            #
-            # # Check if this is form data being received
-            # if ctype == 'multipart/form-data':
-            #     # fields will collect all our fields on a form using cgi.parse_multipart
-            #     fields = cgi.parse_multipart(self.rfile,pdict)
-            #     # get the value of a specific field and store it into an array
-            #     messagecontent = fields.get('message')
-            # output = ""
-            # output += "<html><body>"
-            # output += "<h2> Okay, how about this: </h2>"
-            # # return the first value of the array created when the form is submitted
-            # output += "<h1> %s </h1>" % messagecontent[0]
-            # # Our form with input name = message
-            # output += '''<form method='POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2><input name="message" type="text" ><input type="submit" value="Submit"> </form>'''
-            # output += "</body></html>"
-            # self.wfile.write(output)
-            # print
-            # output
+            # if statement looking for restaurants/new
+            if self.path.endswith("/restaurants/new"):
+                ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+                if ctype == 'multipart/form-data':
+                    fields = cgi.parse_multipart(self.rfile,pdict)
+                    messagecontent = fields.get('newRestaurantName')
+
+                # Create new Restaurant Class
+                newRestaurant = Restaurant(name = messagecontent[0])
+                session.add(newRestaurant)
+                session.commit()
+
+                # Instead of print we re-direct to /restaurants homepage
+                self.send_response(301)
+                self.send_header('Content-type', 'text/html')
+                self.send_header('Location', '/restaurants')
+                self.end_headers()
+
+                return
 
         except:
             pass
