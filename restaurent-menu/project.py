@@ -1,6 +1,6 @@
 # Creating and Testing out our first Flask application
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 # import CRUD Operations from Lesson 1
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -28,11 +28,18 @@ def restaurantMenu(restaurant_id):
 
 
 # Task 1: Create route for newMenuItem function here
-@app.route('/restaurants/<int:restaurant_id>/new/')
+@app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
-
-
-    return "page to create a new menu item. Task 1 complete!"
+    # Look for POST request
+    if request.method == 'POST':
+        # extract 'name' from our form using request.form
+        newItem = MenuItem(name=request.form['name'],restaurant_id = restaurant_id)
+        session.add(newItem)
+        session.commit()
+        return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
+    # If a POST request was not received
+    else:
+        return render_template('newmenuitem.html', restaurant_id=restaurant_id)
 
 
 # Task 2: Create route for editMenuItem function here
