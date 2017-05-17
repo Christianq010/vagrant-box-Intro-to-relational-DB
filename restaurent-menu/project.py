@@ -1,13 +1,13 @@
 # Creating and Testing out our first Flask application
 
 from flask import Flask
-# Create an instance of this class with __name__ as the running argument
-app = Flask(__name__)
-
 # import CRUD Operations from Lesson 1
-from database_setup import Base, Restaurant, MenuItem
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from database_setup import Base, Restaurant, MenuItem
+
+# Create an instance of this class with __name__ as the running argument
+app = Flask(__name__)
 
 # create Session and connect to DB
 engine = create_engine('sqlite:///restaurantMenu.db')
@@ -18,12 +18,10 @@ session = DBSession()
 
 # python decorator - when browser uses URL, the function specific to that URL gets executed
 @app.route('/')
-@app.route('/hello')
-
-
-def HelloWorld():
+@app.route('/restaurants/<int:restaurant_id>/')
+def restaurantMenu(restaurant_id):
     # Add all restaurants and menu items to page
-    restaurant = session.query(Restaurant).first()
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id)
     output = ''
     for i in items:
