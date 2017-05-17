@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Flask App</title>
+</head>
+<body>
+    <h1>{{restaurant.name}}</h1>
+
+
+    {% for i in items %}
+
+    <div>
+
+    <p>{{i.name}}</p>
+
+    <p>{{i.description}}</p>
+
+    <p> {{i.price}} </p>
+
+    </div>
+
+
+{% endfor %}
+</body>
+</html>

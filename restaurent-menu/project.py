@@ -1,6 +1,6 @@
 # Creating and Testing out our first Flask application
 
-from flask import Flask
+from flask import Flask, render_template
 # import CRUD Operations from Lesson 1
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -23,16 +23,8 @@ def restaurantMenu(restaurant_id):
     # Add all restaurants and menu items to page
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id)
-    output = ''
-    for i in items:
-        output += i.name
-        output += '</br>'
-        output += i.price
-        output += '</br>'
-        output += i.description
-        output += '</br>'
-        output += '</br>'
-    return output
+    # Render templates in folder and pass our queries above as arguments for our template
+    return render_template('menu.html', restaurant=restaurant, items=items)
 
 
 # Task 1: Create route for newMenuItem function here
