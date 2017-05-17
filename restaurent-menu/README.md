@@ -157,6 +157,8 @@ session = DBSession()
 * On the virtual machine `cd` to the directory containing the file `webserver.py` and run `python webserver.py`
 * By default it is configured to serve on http://localhost:8080/hello on your browser.
 
+### Rendering Templates on Flask
+* Create a `templates` directory using `mkdir templates` in our flask project folder.
 
 ### Notes
 * The file `basic_webserver.py` contains all code with instructions to getting a basic server with python started up.
