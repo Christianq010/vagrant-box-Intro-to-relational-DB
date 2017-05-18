@@ -1,6 +1,6 @@
 # Creating and Testing out our first Flask application
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 # import CRUD Operations from Lesson 1
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -14,6 +14,22 @@ engine = create_engine('sqlite:///restaurantMenu.db')
 Base.metadata.bind=engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+
+# Add JSON menu Page
+@app.route('/restaurants/<int:restaurant_id>/menu/JSON')
+def restaurantMenuJSON(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
+    # Return jsonify class and use loop to serialize all our DB entries
+    return jsonify(MenuItems=[i.serialize for i in items])
+
+
+# ADD JSON to individual menuItems in the URL
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+def menuItemJSON(restaurant_id, menu_id):
+    menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
+    return jsonify(MenuItem=menuItem.serialize)
 
 
 # python decorator - when browser uses URL, the function specific to that URL gets executed
