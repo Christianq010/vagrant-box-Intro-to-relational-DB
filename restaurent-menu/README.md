@@ -167,6 +167,8 @@ session = DBSession()
 ### Notes
 * The file `basic_webserver.py` contains all code with instructions to getting a basic server with python started up.
 * Using `.split()` on python - in `webserver.py` we use `.split(/)` which breaks/separates the string at each `/` and then assigns each value it an index number in an array 0,1,2,3 ..
+* To view a restaurants menu items in JSON - http://localhost:5000/restaurants/2/menu/JSON - or to view individual menu items by their id - http://localhost:5000/restaurants/1/menu/JSON
+
 
 ----
 #### Primary Key / Foreign Keys in Relational DBs
