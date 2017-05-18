@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Basic Flask App</title>
+    <!--Our basic CSS-->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>{{restaurant.name}}</h1>
