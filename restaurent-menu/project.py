@@ -1,6 +1,6 @@
 # Creating and Testing out our first Flask application
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 # import CRUD Operations from Lesson 1
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -36,6 +36,8 @@ def newMenuItem(restaurant_id):
         newItem = MenuItem(name=request.form['name'],restaurant_id = restaurant_id)
         session.add(newItem)
         session.commit()
+        # Our flask message
+        flash("new menu item created!")
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     # If a POST request was not received
     else:
@@ -71,6 +73,8 @@ def deleteMenuItem(restaurant_id, menu_id):
 
 # if executed via python interpreter run this function
 if __name__ == '__main__':
+    # Secret key for flask message flashing (sessions)
+    app.secret_key = 'super_secret_key'
     # reload server when code change detected and run debug in browser
     app.debug = True
     # use to run local server with our application
