@@ -51,4 +51,4 @@ We're using tools called Vagrant and VirtualBox to install and manage the VM. Yo
 
 
 ### Resources
-* https://www.youtube.com/watch?v=djnqoEO2rLc
+* Udacity FSND Webcast on setting up Vagrant - https://www.youtube.com/watch?v=djnqoEO2rLc
