@@ -6,6 +6,16 @@
 This repository contains Web applications that queries a database and then dynamically generates complete web pages and API endpoints.
 These projects are set up to use a virtual machine - Vagrant (VM) to run our database server.
 
+### About Our Projects
+
+#### *1. Forum*
+* Learning CRUD operations by using PostgreSQL inside our Virtual machine to populate a database using the PSQL Database command line.
+
+#### *2. Restaurent-Menu App*
+* We use an Object-Relational Mapping (ORM) layer - SQLAlchemy to interact with our database.
+* `GET` and `POST` requests that translate to CRUD operations.
+* Using the Flask framework for development of our application.
+
 We need to be able to successfully run the virtual machine in order to view our projects.
 
 The VM is a Linux server system that runs on top of your own computer.
