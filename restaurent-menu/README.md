@@ -171,6 +171,7 @@ session = DBSession()
 
 
 ----
+
 #### Primary Key / Foreign Keys in Relational DBs
 * In the context of relational databases, a foreign key is a field (or collection of fields) in one table that uniquely identifies a row of another table or the same table.
 * In simpler words, the foreign key is defined in a second table, but it refers to the primary key in the first table.
