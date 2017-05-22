@@ -2,8 +2,11 @@
 ==============================================
 
 ## Description
-A few projects are set up to use a virtual machine - Vagrant (VM) to run an SQL database server.
-We need to be able to successfully run the virtual machine in order to use view our projects.
+
+This repository contains Web applications that queries a database and then dynamically generates complete web pages and API endpoints.
+These projects are set up to use a virtual machine - Vagrant (VM) to run our database server.
+
+We need to be able to successfully run the virtual machine in order to view our projects.
 
 The VM is a Linux server system that runs on top of your own computer.
 * We can share files easily between our computer and the VM.
@@ -37,8 +40,6 @@ We're using tools called Vagrant and VirtualBox to install and manage the VM. Yo
 * Port: 2222
 * config.ssh.username = "ubuntu"
 * config.ssh.password = "55562eefdc557c810fbaca5f"
-* Private key: C:/Users/Christiaan/PhpstormProjects/Udacity Full Stack Nanodegree/Setting up VM/fullstack-nanodegree-vm/vagrant/.vagrant/machines/default/virtualbox
-/private_key
 
 ### Running the Database
 * The PostgreSQL database server will automatically be started inside the VM.
