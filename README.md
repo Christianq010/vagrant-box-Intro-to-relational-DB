@@ -1,10 +1,12 @@
-# Using a Virtual Machine w/ Relational Database
+# Using a Virtual Machine - Run our Vagrant Machine w/ Relational Database
 ==============================================
 
 ## Description
-A project set up to use a virtual machine (VM) to run an SQL database server and a web app that uses it.
+A few projects are set up to use a virtual machine - Vagrant (VM) to run an SQL database server.
+We need to be able to successfully run the virtual machine in order to use view our projects.
+
 The VM is a Linux server system that runs on top of your own computer.
-* We can share files easily between our computer and the VM
+* We can share files easily between our computer and the VM.
 * We'll be running a web service inside the VM which we'll be able to access from our regular browser locally.
 
 We're using tools called Vagrant and VirtualBox to install and manage the VM. You'll need to install these to do some of the exercises.
@@ -48,6 +50,10 @@ We're using tools called Vagrant and VirtualBox to install and manage the VM. Yo
 * To exit Vagrant after the test simply type `logout`
 * To stop Vagrant running in the background when done type `vagrant halt`
 * If you reboot your computer, you will need to run `vagrant up` to restart the VM.
+
+## View Projects
+* Use `ls` to view files in the current directory, the `forum` and the `restaurent-menu ` directories should be present.
+* `cd` into each respective directory and view each respective `README.md` file to instructions on how to run each project and serve it on localhost.
 
 
 ### Resources
