@@ -106,7 +106,7 @@ def newMenuItem(restaurant_id):
         session.add(newItem)
         session.commit()
         # Our flask message
-        flash("new menu item created!")
+        flash("New menu item created!")
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     # If a POST request was not received
     else:
