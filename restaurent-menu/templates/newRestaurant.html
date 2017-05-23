@@ -1,7 +1,31 @@
 <html>
 
 <head>
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Restaurant Menu App | VentureKPQ</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="A project on the Flask Framework" />
+
+
+	<!-- Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic|Roboto:400,300,700' rel='stylesheet' type='text/css'>
+	<!-- Animate -->
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='animate.css') }}">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href ='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap.css') }}">
+    <!--Custom styles-->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='views.css') }}">
+    <!--<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">-->
+
+    <!-- Modernizr JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='modernizr-2.6.2.min.js') }}"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+    <script type="text/javascript" src="{{ url_for('static', filename='respond.min.js') }}"></script>
+    <![endif]-->
 </head>
 
 <body>
@@ -13,6 +37,17 @@
 	    	<input type ='text' size='30' name='name'>
             <input type='submit' value='Create'>
     </form>
+
+	<!-- jQuery -->
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+	<!-- jQuery Easing -->
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.easing.1.3.js') }}"></script>
+	<!-- Bootstrap -->
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+	<!-- Waypoints -->
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.waypoints.min.js') }}"></script>
+	<!-- Main JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
 
 </body>
 </html>

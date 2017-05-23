@@ -85,38 +85,9 @@
 		</header>
 
 
-		<!--<div class = 'pane'>-->
-			<!--<h1>Restaurants</h1>-->
-				<!--<a href="{{url_for('newRestaurant')}}" > <h3> Create a New Restaurant </h3> </a>-->
-			<!--{% for restaurant in restaurants %}-->
-				<!--<a href = "{{url_for('restaurantMenu', restaurant_id = restaurant.id)}}"> <p>{{restaurant.name}}</p></a>-->
-				<!--<p><a href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">Edit Restaurant</a></p>-->
-				 <!--<p><a href = "{{url_for('deleteRestaurant',restaurant_id = restaurant.id)}}">Delete Restaurant</a> </p>-->
-			<!--{% endfor %}-->
-		<!--</div>-->
+	{% block content %}
 
-
-		<div class="container-fluid">
-			<div class="row fh5co-post-entry">
-				{% for restaurant in restaurants %}
-				<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
-					<!--<figure>-->
-						<!--<a href="single.html"><img src="images/pic_1.jpg" alt="Image" class="img-responsive"></a>-->
-					<!--</figure>-->
-					<h2 class="fh5co-article-title"><a href="{{url_for('restaurantMenu', restaurant_id = restaurant.id)}}">
-						{{restaurant.name}}</a>
-					</h2>
-					<span class="fh5co-meta fh5co-date"><a href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">
-						Edit Restaurant</a>
-					</span>
-					<h4> <span class="fh5co-meta"><a class="fh5co-date" href="{{url_for('deleteRestaurant',restaurant_id = restaurant.id)}}">
-						Delete Restaurant</a>
-					</span></h4>
-				</article>
-				{% endfor %}
-			</div>
-		</div>
-
+    {% endblock %}
 
 
 	<!-- jQuery -->
