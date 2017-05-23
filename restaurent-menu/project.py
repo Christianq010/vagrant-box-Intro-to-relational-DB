@@ -16,8 +16,8 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-# Add JSON menu Page
-@app.route('/restaurants/<int:restaurant_id>/menu/JSON')
+# Show Restaurant menu Page in JSON
+@app.route('/restaurant/<int:restaurant_id>/menu/JSON')
 def restaurantMenuJSON(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
@@ -25,16 +25,33 @@ def restaurantMenuJSON(restaurant_id):
     return jsonify(MenuItems=[i.serialize for i in items])
 
 
-# ADD JSON to individual menuItems in the URL
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+# Show individual menuItems in the URL in JSON
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
 def menuItemJSON(restaurant_id, menu_id):
     menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
     return jsonify(MenuItem=menuItem.serialize)
 
 
+# Show all restaurants in JSON
+@app.route('/restaurant/JSON')
+def restaurantJSON():
+    restaurants = session.query(Restaurant).all()
+    return jsonify(restaurants=[r.serialize for r in restaurants])
+
+
 # python decorator - when browser uses URL, the function specific to that URL gets executed
+# Show all restaurants
 @app.route('/')
+@app.route('/restaurant/')
+def showRestaurants():
+    restaurants = session.query(Restaurant).all()
+    # return "This page will show all my restaurants"
+    return render_template('restaurants.html', restaurants=restaurants)
+
+
+# Show a Restaurant Menu
 @app.route('/restaurants/<int:restaurant_id>/')
+@app.route('/restaurant/<int:restaurant_id>/menu/')
 def restaurantMenu(restaurant_id):
     # Add all restaurants and menu items to page
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
