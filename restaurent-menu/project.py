@@ -44,7 +44,7 @@ def restaurantJSON():
 # Show all Restaurants
 @app.route('/')
 @app.route('/restaurant/')
-def showMenu():
+def showRestaurants():
     restaurants = session.query(Restaurant).all()
     return render_template('restaurants.html', restaurants=restaurants)
 
@@ -62,7 +62,7 @@ def newRestaurant():
 
 
 # Edit an existing Restaurant
-@app.route('/restaurant/edit/', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
     editedRestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if request.method == 'POST':
@@ -74,7 +74,7 @@ def editRestaurant(restaurant_id):
 
 
 # Delete an existing Restaurant
-@app.route('/restaurant/delete/', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if request.method == 'POST':
@@ -91,18 +91,18 @@ def deleteRestaurant(restaurant_id):
 def restaurantMenu(restaurant_id):
     # Add all restaurants and menu items to page
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id)
+    items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
     # Render templates in folder and pass our queries above as arguments for our template
     return render_template('menu.html', restaurant=restaurant, items=items)
 
 
 # Add a new Menu Item
-@app.route('/restaurant/<int:restaurant_id>/new/', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
     # Look for POST request
     if request.method == 'POST':
         # extract 'name' from our form using request.form
-        newItem = MenuItem(name=request.form['name'],restaurant_id = restaurant_id)
+        newItem = MenuItem(name=request.form['name'],restaurant_id=restaurant_id)
         session.add(newItem)
         session.commit()
         # Our flask message
