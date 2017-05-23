@@ -44,7 +44,7 @@ def restaurantJSON():
 # Show all Restaurants
 @app.route('/')
 @app.route('/restaurant/')
-def showRestaurants():
+def showMenu():
     restaurants = session.query(Restaurant).all()
     return render_template('restaurants.html', restaurants=restaurants)
 
