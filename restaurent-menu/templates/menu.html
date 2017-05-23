@@ -1,45 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Basic Flask App</title>
-    <!--Our basic CSS-->
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <h1>{{restaurant.name}}</h1>
+{% extends "base.html" %}
 
-    <h3><a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id)}}">Add New Menu Item</a></h3>
+{% block menu %}
 
-    <!--MESSAGE FLASHING EXAMPLE -->
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
 
-    <ul>
-    {% for message in messages %}
-      <li><strong>{{message}}</strong></li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
+<div class="container-fluid">
+    <div class="row fh5co-post-entry single-entry">
+        <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
 
-    <!--Loop over our Menu Items-->
-    {% for i in items %}
+            <h2 class="fh5co-article-title animate-box">{{restaurant.name}}</h2>
 
-    <div>
+            <h3><a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id)}}">Add New Menu Item</a></h3>
 
-    <p>{{i.name}}</p>
+            <!--MESSAGE FLASHING EXAMPLE -->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
 
-    <p>{{i.description}}</p>
+            <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+              <strong>{{message}}</strong>
+              {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
 
-    <p> {{i.price}} </p>
-        <p><a href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id)}}">Edit</a></p>
+            <!--Loop over our Menu Items-->
+            {% for i in items %}
+            <div class="fh5co-post-entry article content-article">
+                <blockquote>
+                    <p>&ldquo;{{i.name}}&rdquo;</p>
+                </blockquote>
+            <p>{{i.description}}<cite>&mdash; {{i.price}}</cite></p>
 
-        <p><a href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id)}}">Delete</a></p>
+                <button type="button" class="btn btn-warning">
+                    <a href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id)}}">Edit</a>
+                </button>
 
+                <button type="button" class="btn btn-danger">
+                    <a href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id)}}">Delete</a>
+                </button>
+            </div>
+            {% endfor %}
+
+        </article>
     </div>
+</div>
 
-
-{% endfor %}
-</body>
-</html>
+{% endblock %}

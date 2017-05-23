@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Flask App New Menu Item Page</title>
-    <!--Our basic CSS-->
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-<h1> New Menu Item </h1>
+{% extends "base.html" %}
 
-<form action="{{url_for('newMenuItem', restaurant_id=restaurant_id )}}" method = 'POST'>
+{% block newMenuItem %}
 
-<p>Name:</p>
+    <div class="col-md-12 text-center">
+        <h1> New Menu Item </h1>
 
-<input type='text' size='30' name='name'>
+        <form action="{{url_for('newMenuItem', restaurant_id=restaurant_id )}}" method = 'POST'>
+            <p>Add Name:</p>
+            <input type='text' size='30' name='name'>
+            <input type='submit' value='Create' class="btn btn-success">
+        </form>
+    </div>
 
-<input type='submit' value='Create'>
-
-</form>
-</body>
-</html>
+{% endblock %}
