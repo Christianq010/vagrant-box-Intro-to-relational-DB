@@ -11,13 +11,14 @@
 	<!-- Google Fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic|Roboto:400,300,700' rel='stylesheet' type='text/css'>
 	<!-- Animate -->
-	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/animate.css') }}">
-	<!-- Icomoon -->
-	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/icomoon.css') }}">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='animate.css') }}">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href ='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap.css') }}">
     <!--Custom styles-->
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='views.css') }}">
+    <!--<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">-->
 
     <!-- Modernizr JS -->
     <script type="text/javascript" src="{{ url_for('static', filename='modernizr-2.6.2.min.js') }}"></script>
@@ -27,18 +28,94 @@
     <![endif]-->
 
 </head>
-
-
 <body>
-    <div class = 'pane'>
-        <h1>Restaurants</h1>
-            <a href="{{url_for('newRestaurant')}}" > <h3> Create a New Restaurant </h3> </a>
-        {% for restaurant in restaurants %}
-            <a href = "{{url_for('restaurantMenu', restaurant_id = restaurant.id)}}"> <p>{{restaurant.name}}</p></a>
-            <p><a href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">Edit Restaurant</a></p>
-             <p><a href = "{{url_for('deleteRestaurant',restaurant_id = restaurant.id)}}">Delete Restaurant</a> </p>
-        {% endfor %}
-    </div>
+
+	<!--Hamburger Menu-->
+	<div id="fh5co-offcanvas">
+			<a href="#" class="fh5co-close-offcanvas js-fh5co-close-offcanvas"><span><i class="fa fa-window-close"></i> <span>Close</span></span></a>
+			<div class="fh5co-bio">
+				<h3 class="heading">About</h3>
+				<h2>Restaurant Menu App</h2>
+				<p>This Web application queries a database and then dynamically generates complete web pages and API endpoints.</p>
+				<ul class="fh5co-social">
+					<li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+				</ul>
+			</div>
+
+			<div class="fh5co-menu">
+				<div class="fh5co-box">
+					<h3 class="heading">Contribute</h3>
+					<ul>
+						<li><a href="{{url_for('newRestaurant')}}">Add new Restaurant</a></li>
+					</ul>
+				</div>
+				<div class="fh5co-box">
+					<h3 class="heading">Search</h3>
+					<form action="#">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Type a keyword">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- END #fh5co-offcanvas -->
+
+
+		<header id="fh5co-header">
+
+			<div class="container-fluid">
+				<div class="row">
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+					<ul class="fh5co-social">
+					<li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+					</ul>
+					<div class="col-lg-12 col-md-12 text-center">
+						<h1 id="fh5co-logo"><a href="{{url_for('showRestaurants')}}">Restaurant Menu App <sup>TM</sup></a></h1>
+					</div>
+
+				</div>
+
+			</div>
+
+		</header>
+
+
+		<!--<div class = 'pane'>-->
+			<!--<h1>Restaurants</h1>-->
+				<!--<a href="{{url_for('newRestaurant')}}" > <h3> Create a New Restaurant </h3> </a>-->
+			<!--{% for restaurant in restaurants %}-->
+				<!--<a href = "{{url_for('restaurantMenu', restaurant_id = restaurant.id)}}"> <p>{{restaurant.name}}</p></a>-->
+				<!--<p><a href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">Edit Restaurant</a></p>-->
+				 <!--<p><a href = "{{url_for('deleteRestaurant',restaurant_id = restaurant.id)}}">Delete Restaurant</a> </p>-->
+			<!--{% endfor %}-->
+		<!--</div>-->
+
+
+		<div class="container-fluid">
+			<div class="row fh5co-post-entry">
+				{% for restaurant in restaurants %}
+				<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
+					<!--<figure>-->
+						<!--<a href="single.html"><img src="images/pic_1.jpg" alt="Image" class="img-responsive"></a>-->
+					<!--</figure>-->
+					<h2 class="fh5co-article-title"><a href="{{url_for('restaurantMenu', restaurant_id = restaurant.id)}}">
+						{{restaurant.name}}</a>
+					</h2>
+					<span class="fh5co-meta fh5co-date"><a href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">
+						Edit Restaurant</a>
+					</span>
+					<h4> <span class="fh5co-meta"><a class="fh5co-date" href="{{url_for('deleteRestaurant',restaurant_id = restaurant.id)}}">
+						Delete Restaurant</a>
+					</span></h4>
+				</article>
+				{% endfor %}
+			</div>
+		</div>
 
 
 
