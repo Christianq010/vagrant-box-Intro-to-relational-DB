@@ -84,9 +84,20 @@
 
 		</header>
 
+    <!--Show All Restaurants via Template-->
+	{% block restaurants %}
+    {% endblock %}
 
-	{% block content %}
+    <!-- Add New Restaurant Page -->
+    {% block newRestaurant %}
+    {% endblock %}
 
+    <!-- Edit existing Restaurant -->
+    {% block editRestaurant %}
+    {% endblock %}
+
+    <!-- Delete existing Restaurant -->
+    {% block deleteRestaurant %}
     {% endblock %}
 
 
