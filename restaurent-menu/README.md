@@ -18,6 +18,21 @@ Plain-Python build succeeded.
 
 ```
 
+### Operations with SQLAlchemy
+* To straightway start CRUD operations with our virtual machine run the following code from a python shell first -
+```
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from database_setup import Base, Restaurant, MenuItem
+engine = create_engine('sqlite:///restaurantMenu.db')
+Base.metadata.bind=engine
+DBSession = sessionmaker(bind = engine)
+session = DBSession()
+```
+
+*Skip the following commands below and proceed to directly entering data into our database if you ran the code above*
+
+
 ### 1.CRUD create (Add data to a Database)
 * Log into the Vagrant and `cd` into the `/vagrant` folder
 * Run a python shell (`python`) and import the following statements -
@@ -141,17 +156,6 @@ u'Pizza Place'
 >>> spinach = session.query(MenuItem).filter_by(name = 'Spinach Ice Cream').one()
 ```
 
-### Operations with SQLAlchemy
-* To straightway start CRUD operations with our virtual machine run the following code from a python shell first -
-```
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant, MenuItem
-engine = create_engine('sqlite:///restaurantMenu.db')
-Base.metadata.bind=engine
-DBSession = sessionmaker(bind = engine)
-session = DBSession()
-```
 
 ### Running the WebServer
 * On the virtual machine `cd` to the directory containing the file `webserver.py` and run `python webserver.py`
