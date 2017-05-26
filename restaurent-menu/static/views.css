@@ -625,7 +625,6 @@ figure figcaption {
 #fh5co-offcanvas .fh5co-menu ul li a {
   color: #000;
 }
-
 #fh5co-footer {
   padding: 3em 0;
   text-align: center;
@@ -771,3 +770,8 @@ figure figcaption {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/***************** Some Custom Done Styles */
+.log-in-icon{
+    color: #fff;
+}
