@@ -7,20 +7,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="A project on the Flask Framework" />
 
-
+	<!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="//apis.google.com/js/platform.js?onload=start"></script>
 	<!-- Google Fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic|Roboto:400,300,700' rel='stylesheet' type='text/css'>
 	<!-- Animate -->
 	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='animate.css') }}">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href ='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	<!--Zocial Font-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/css-social-buttons/1.3.0/css/zocial.min.css">
 	<!-- Bootstrap -->
 	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap.css') }}">
     <!--Custom styles-->
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='views.css') }}">
-    <!--<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">-->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='form.css') }}">
 
     <!-- Modernizr JS -->
     <script type="text/javascript" src="{{ url_for('static', filename='modernizr-2.6.2.min.js') }}"></script>
@@ -50,7 +53,7 @@
 				<div class="fh5co-box">
 					<h3 class="heading">Log in</h3>
 					<ul>
-						<!--Log in / Sign up Button-->
+						<!--log in / Sign up Button-->
 						<li class="log-in-icon">
 							<a href="{{url_for('showLogin')}}" class="btn btn-primary">
                                 Login / Sign up
@@ -97,39 +100,83 @@
 
 		</header>
 
-    <!--Show All Restaurants via Template-->
-	{% block restaurants %}
-    {% endblock %}
+    <!--Form Start-->
+        <div class="container">
 
-    <!-- Add New Restaurant Page -->
-    {% block newRestaurant %}
-    {% endblock %}
+            <div class="omb_login">
+                <h3 class="omb_authTitle">Login or <a href="#">Sign up</a></h3>
+                <div class="row omb_row-sm-offset-3 omb_socialButtons text-center">
+                    <div class="">
+                        <a href="#" class="zocial facebook">
+                            <i class="fa fa-facebook visible-xs"></i>
+                            <span class="hidden-xs">Continue with Facebook</span>
+                        </a>
+                    </div>
+                    <br>
+                    <!--<div class="col-xs-4 col-sm-2">-->
+                        <!--<a href="#" class="btn btn-lg btn-block omb_btn-twitter">-->
+                            <!--<i class="fa fa-twitter visible-xs"></i>-->
+                            <!--<span class="hidden-xs">Twitter</span>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                    <div class="">
+                        <a href="#" class="zocial googleplus"
+								style="color: #fff;"
+								data-scope="openid email"
+            					data-clientid="828142068505-m37a3dtrqnogip3j6p4spkt9tsl00mgv.apps.googleusercontent.com"
+            					data-redirecturi="postmessage"
+            					data-accesstype="offline"
+            					data-cookiepolicy="single_host_origin"
+            					data-callback="signInCallback"
+            					data-approvalprompt="force">
+                            <i class="fa fa-google-plus visible-xs"></i>
+                            <span class="hidden-xs">Sign in with Google</span>
+                        </a>
+                    </div>
+                </div>
 
-    <!-- Edit existing Restaurant -->
-    {% block editRestaurant %}
-    {% endblock %}
+                <div class="row omb_row-sm-offset-3 omb_loginOr">
+                    <div class="col-xs-12 col-sm-6">
+                        <hr class="omb_hrOr">
+                        <span class="omb_spanOr">or</span>
+                    </div>
+                </div>
 
-    <!-- Delete existing Restaurant -->
-    {% block deleteRestaurant %}
-    {% endblock %}
+                <div class="row omb_row-sm-offset-3">
+                    <div class="col-xs-12 col-sm-6">
+                        <form class="omb_loginForm" action="" autocomplete="off" method="POST">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input type="text" class="form-control" name="username" placeholder="email address">
+                            </div>
+                            <span class="help-block"></span>
 
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                <input  type="password" class="form-control" name="password" placeholder="Password">
+                            </div>
+                            <span class="help-block">Password error</span>
 
-    <!-- Show Menu Content for specific Restaurant -->
-    {% block menu %}
-    {% endblock %}
+                            <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row omb_row-sm-offset-3">
+                    <div class="col-xs-12 col-sm-3">
+                        <label class="checkbox">
+                            <input type="checkbox" value="remember-me">Remember Me
+                        </label>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <p class="omb_forgotPwd">
+                            <a href="#">Forgot password?</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Add New Menu Item on a Restaurant Page -->
-    {% block newMenuItem %}
-    {% endblock %}
-
-    <!-- Edit existing Menu Item on a Restaurant Page -->
-    {% block editMenuItem %}
-    {% endblock %}
-
-    <!-- Delete existing Menu Item on a Restaurant Page -->
-    {% block deleteMenuItem %}
-    {% endblock %}
-
+        </div>
+    <!--/ Form End-->
 
     <footer id="fh5co-footer">
 		<p><small>&copy; 2017 <a href="https://github.com/Christianq010/" target="_blank">Christiaan Quyn</a>. <br> Fork me on Github <a href="https://github.com/Christianq010/vagrant-box-Intro-to-relational-DB" target="_blank">here</a>. All Rights Reserverd.</small></p>
