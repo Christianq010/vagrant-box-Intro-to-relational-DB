@@ -1,0 +1,126 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Restaurant Menu App | VentureKPQ</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="A project on the Flask Framework" />
+
+	<!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="//apis.google.com/js/platform.js?onload=start"></script>
+	<!-- Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic|Roboto:400,300,700' rel='stylesheet' type='text/css'>
+	<!-- Animate -->
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='animate.css') }}">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href ='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<!--Zocial Font-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/css-social-buttons/1.3.0/css/zocial.min.css">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap.css') }}">
+    <!--Custom styles-->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='views.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='form.css') }}">
+
+    <!-- Modernizr JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='modernizr-2.6.2.min.js') }}"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+    <script type="text/javascript" src="{{ url_for('static', filename='respond.min.js') }}"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+	<!--Hamburger Menu-->
+	<div id="fh5co-offcanvas">
+			<a href="#" class="fh5co-close-offcanvas js-fh5co-close-offcanvas"><span><i class="fa fa-window-close"></i> <span>Close</span></span></a>
+			<div class="fh5co-bio">
+				<h3 class="heading">About</h3>
+				<h2>Restaurant Menu App</h2>
+				<p>This Web application queries a database and then dynamically generates complete web pages and API endpoints.</p>
+				<ul class="fh5co-social">
+					<li><a href="https://github.com/Christianq010/"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+					<li><a href="https://www.linkedin.com/in/christianq010/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+					<li><a href="https://www.instagram.com/christiaanquyn/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+				</ul>
+			</div>
+
+			<div class="fh5co-menu">
+				<div class="fh5co-box">
+					<h3 class="heading">Log in</h3>
+					<ul>
+						<!--log in / Sign up Button-->
+						<li class="log-in-icon">
+							<a href="{{url_for('showLogin')}}" class="btn btn-primary">
+                                Login / Sign up
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="fh5co-box">
+					<h3 class="heading">Contribute</h3>
+					<ul>
+						<li><a href="{{url_for('newRestaurant')}}">Add new Restaurant</a></li>
+					</ul>
+				</div>
+				<div class="fh5co-box">
+					<h3 class="heading">Search</h3>
+					<form action="#">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Type a keyword">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- END #fh5co-offcanvas -->
+
+
+		<header id="fh5co-header">
+
+			<div class="container-fluid">
+				<div class="row">
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+					<ul class="fh5co-social">
+					<li><a href="https://github.com/Christianq010/"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+					<li><a href="https://www.linkedin.com/in/christianq010/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+					<li><a href="https://www.instagram.com/christiaanquyn/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+					</ul>
+					<div class="col-lg-12 col-md-12 text-center">
+						<h1 id="fh5co-logo"><a href="{{url_for('showRestaurants')}}">Restaurant Menu App </a></h1>
+					</div>
+
+				</div>
+
+			</div>
+
+		</header>
+
+    <!-- Our Form for Log in / Sign up -->
+    {% block loginForm %}
+    {% endblock %}
+
+
+
+    <footer id="fh5co-footer">
+		<p><small>&copy; 2017 <a href="https://github.com/Christianq010/" target="_blank">Christiaan Quyn</a>. <br> Fork me on Github <a href="https://github.com/Christianq010/vagrant-box-Intro-to-relational-DB" target="_blank">here</a>. All Rights Reserverd.</small></p>
+	</footer>
+
+
+	<!-- jQuery -->
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+	<!-- jQuery Easing -->
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.easing.1.3.js') }}"></script>
+	<!-- Bootstrap -->
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+	<!-- Waypoints -->
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.waypoints.min.js') }}"></script>
+	<!-- Main JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>
