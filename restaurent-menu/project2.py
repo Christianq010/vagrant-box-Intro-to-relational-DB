@@ -20,13 +20,14 @@ import json
 # converts our returned function to a real response method sent to our client
 from flask import make_response
 # apache library written in python
-import requests
+# import requests
 
 # Create an instance of this class with __name__ as the running argument
 app = Flask(__name__)
 
 CLIENT_ID = json.loads(
-    open('clients_secrets.json', 'r').read())['web']['client_id']
+    open('client_secret.json', 'r').read())['web']['client_id']
+APPLICATION_NAME = 'Restaurant Menu Application'
 
 # create Session and connect to DB
 engine = create_engine('sqlite:///restaurantMenu.db')
@@ -57,7 +58,7 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('client_secret.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
