@@ -1,18 +1,24 @@
 {% extends "base.html" %}
 
 {% block restaurants %}
-		<!--<div class = 'pane'>-->
-			<!--<h1>Restaurants</h1>-->
-				<!--<a href="{{url_for('newRestaurant')}}" > <h3> Create a New Restaurant </h3> </a>-->
-			<!--{% for restaurant in restaurants %}-->
-				<!--<a href = "{{url_for('restaurantMenu', restaurant_id = restaurant.id)}}"> <p>{{restaurant.name}}</p></a>-->
-				<!--<p><a href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">Edit Restaurant</a></p>-->
-				 <!--<p><a href = "{{url_for('deleteRestaurant',restaurant_id = restaurant.id)}}">Delete Restaurant</a> </p>-->
-			<!--{% endfor %}-->
-		<!--</div>-->
 
 
 		<div class="container-fluid">
+
+			<!--Flash Message-->
+			<div class ="row text-center">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				<div class="col-md-6 col-md-offset-3 alert alert-success" role="alert">
+					{% for message in messages %}
+						<p> <strong> {{ message }} </strong> </p>
+					{% endfor %}
+				</div>
+				{% endif %}
+			{% endwith %}
+			</div>
+
+			<!--Main Restaurant Items-->
 			<div class="row fh5co-post-entry">
 				{% for restaurant in restaurants %}
 				<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">

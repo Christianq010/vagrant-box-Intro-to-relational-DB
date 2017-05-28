@@ -20,7 +20,7 @@ import json
 # converts our returned function to a real response method sent to our client
 from flask import make_response
 # apache library written in python
-# import requests
+import requests
 
 # Create an instance of this class with __name__ as the running argument
 app = Flask(__name__)
@@ -43,7 +43,7 @@ def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)for x in xrange(32))
     login_session['state'] = state
     # Show our validation in a string - return "The current session state is %s" % login_session['state']
-    return render_template('login.html')
+    return render_template('login.html', STATE=state)
 
 # Server side code accepting token
 @app.route('/gconnect', methods=['POST'])
@@ -98,13 +98,12 @@ def gconnect():
     stored_credentials = login_session.get('credentials')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_credentials is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'),
-                                 200)
+        response = make_response(json.dumps('Current user is already connected.'),200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
     # Store the access token in the session for later use.
-    login_session['credentials'] = credentials
+    login_session['credentials'] = credentials.access_token
     login_session['gplus_id'] = gplus_id
 
     # Get user info
@@ -125,7 +124,7 @@ def gconnect():
     output += '<img src="'
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
-    flash("you are now logged in as %s" % login_session['username'])
+    flash("You are now logged in as %s" % login_session['username'])
     print "done!"
     return output
 
