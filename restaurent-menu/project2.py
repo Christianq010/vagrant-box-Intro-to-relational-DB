@@ -198,6 +198,9 @@ def showRestaurants():
 # Create new Restaurant
 @app.route('/restaurant/new/', methods=['GET', 'POST'])
 def newRestaurant():
+    # If user not logged in return to log in page
+    if 'username' not in login_session:
+        return redirect('/login')
     if request.method == 'POST':
         newRestaurant = Restaurant(name=request.form['name'])
         session.add(newRestaurant)
