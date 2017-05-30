@@ -104,8 +104,21 @@
     <!--Form Start-->
         <div class="container">
 
+			<!--Flash Message-->
+			<div class ="row text-center">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				<div class="col-md-6 col-md-offset-3 alert alert-danger" role="alert">
+					{% for message in messages %}
+						<p> <strong> {{ message }} </strong> </p>
+					{% endfor %}
+				</div>
+				{% endif %}
+			{% endwith %}
+			</div>
+
             <div class="omb_login">
-                <h3 class="omb_authTitle">Login or <a href="#">Sign up</a></h3>
+				<h3 class="omb_authTitle">Login or Sign up to Add <a href="{{url_for('showRestaurants')}}">Restaurants</a> and Menu Items.</h3>
                 <div class="row omb_row-sm-offset-3 omb_socialButtons text-center">
                     <div class="">
                         <a href="#" class="zocial facebook">

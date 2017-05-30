@@ -25,8 +25,7 @@ import requests
 # Create an instance of this class with __name__ as the running argument
 app = Flask(__name__)
 
-CLIENT_ID = json.loads(
-    open('client_secret.json', 'r').read())['web']['client_id']
+CLIENT_ID = json.loads(open('client_secret.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = 'Restaurant Menu Application'
 
 # create Session and connect to DB
@@ -156,7 +155,6 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     else:
-
         response = make_response(json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response
@@ -200,6 +198,7 @@ def showRestaurants():
 def newRestaurant():
     # If user not logged in return to log in page
     if 'username' not in login_session:
+        flash("Please Log In or Sign Up to Add Restaurant")
         return redirect('/login')
     if request.method == 'POST':
         newRestaurant = Restaurant(name=request.form['name'])
@@ -213,6 +212,10 @@ def newRestaurant():
 # Edit an existing Restaurant
 @app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
+    # If user not logged in return to log in page
+    if 'username' not in login_session:
+        flash("Please Log In or Sign Up to Edit Restaurant")
+        return redirect('/login')
     editedRestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if request.method == 'POST':
         if request.form['name']:
@@ -225,6 +228,10 @@ def editRestaurant(restaurant_id):
 # Delete an existing Restaurant
 @app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
+    # If user not logged in return to log in page
+    if 'username' not in login_session:
+        flash("Please Log In or Sign Up to Delete Restaurant")
+        return redirect('/login')
     restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if request.method == 'POST':
         session.delete(restaurantToDelete)
@@ -248,6 +255,10 @@ def restaurantMenu(restaurant_id):
 # Add a new Menu Item
 @app.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
+    # If user not logged in return to log in page
+    if 'username' not in login_session:
+        flash("Please Log In or Sign Up to Add Menu Item")
+        return redirect('/login')
     # Look for POST request
     if request.method == 'POST':
         # extract 'name' from our form using request.form
@@ -265,6 +276,10 @@ def newMenuItem(restaurant_id):
 # Edit an existing Menu Item
 @app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit/', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
+    # If user not logged in return to log in page
+    if 'username' not in login_session:
+        flash("Please Log In or Sign Up to Edit Menu Item")
+        return redirect('/login')
     editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
     if request.method == 'POST':
         if request.form['name']:
@@ -280,6 +295,10 @@ def editMenuItem(restaurant_id, menu_id):
 # Delete an existing Menu Item
 @app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
+    # If user not logged in return to log in page
+    if 'username' not in login_session:
+        flash("Please Log In or Sign Up to Delete Menu Item")
+        return redirect('/login')
     itemToDelete = session.query(MenuItem).filter_by(id=menu_id).one()
     if request.method == 'POST':
         session.delete(itemToDelete)
