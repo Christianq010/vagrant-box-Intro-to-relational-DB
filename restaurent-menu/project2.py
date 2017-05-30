@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 # import CRUD Operations from Lesson 1
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant, MenuItem
+from database_setup2 import Base, Restaurant, MenuItem
 # New imports for Google Log in
 from flask import session as login_session
 import random, string
