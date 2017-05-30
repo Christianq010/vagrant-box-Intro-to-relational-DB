@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block publicRestaurants %}
+
+
+		<div class="container-fluid">
+
+			<!--Flash Message-->
+			<div class ="row text-center">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				<div class="col-md-6 col-md-offset-3 alert alert-success" role="alert">
+					{% for message in messages %}
+						<p> <strong> {{ message }} </strong> </p>
+					{% endfor %}
+				</div>
+				{% endif %}
+			{% endwith %}
+			</div>
+
+			<!--Main Restaurant Items-->
+			<div class="row fh5co-post-entry">
+				{% for restaurant in restaurants %}
+				<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
+					<!--<figure>-->
+						<!--<a href="single.html"><img src="images/pic_1.jpg" alt="Image" class="img-responsive"></a>-->
+					<!--</figure>-->
+					<h2 class="fh5co-article-title"><a href="{{url_for('restaurantMenu', restaurant_id = restaurant.id)}}">
+						{{restaurant.name}}</a>
+					</h2>
+                    <span class="fh5co-meta fh5co-date"><a href = "{{url_for('editRestaurant',restaurant_id = restaurant.id)}}">
+                    Edit Restaurant</a>
+                    </span>
+                    {% for user in users %}
+                        <h4> <span class="fh5co-meta">
+                            Added by
+                            <br>
+                            {{user.name}}
+                        </span></h4>
+                    {% endfor %}
+				</article>
+				{% endfor %}
+			</div>
+		</div>
+
+{% endblock %}

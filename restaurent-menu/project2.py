@@ -218,6 +218,9 @@ def restaurantJSON():
 @app.route('/restaurant/')
 def showRestaurants():
     restaurants = session.query(Restaurant).all()
+    users = session.query(User).all()
+    if 'username' not in login_session:
+        return render_template('publicrestaurants.html',restaurants=restaurants, users=users )
     return render_template('restaurants.html', restaurants=restaurants)
 
 
