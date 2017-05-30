@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 # import CRUD Operations from Lesson 1
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup2 import Base, Restaurant, MenuItem
+from database_setup2 import Base, Restaurant, MenuItem, User
 # New imports for Google Log in
 from flask import session as login_session
 import random, string
@@ -117,6 +117,12 @@ def gconnect():
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
 
+    # When you log in via Gmail, create new user_id if does not exist in DB
+    user_id = getUserID(login_session['email'])
+    if not user_id:
+        user_id = createUser(login_session)
+    login_session['user_id'] = user_id
+
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
@@ -127,6 +133,28 @@ def gconnect():
     flash("You are now logged in as %s" % login_session['username'])
     print "done!"
     return output
+
+# Use login_session to create a New User when signed in
+def createUser(login_session):
+    newUser = User(name=login_session['username'], email=login_session[
+                   'email'], picture=login_session['picture'])
+    session.add(newUser)
+    session.commit()
+    user = session.query(User).filter_by(email=login_session['email']).one()
+    return user.id
+
+# Pass a user.id into this method return a User object with the associated id number from the DB
+def getUserInfo(user_id):
+    user = session.query(User).filter_by(id=user_id).one()
+    return user
+
+# Take am email address and return a user.id if the email exists
+def getUserID(email):
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        return user.id
+    except:
+        return None
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
 @app.route('/gdisconnect')
