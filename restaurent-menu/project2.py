@@ -136,8 +136,7 @@ def gconnect():
 
 # Use login_session to create a New User when signed in
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session[
-                   'email'], picture=login_session['picture'])
+    newUser = User(name=login_session['username'], email=login_session['email'], picture=login_session['picture'])
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
@@ -259,11 +258,11 @@ def editRestaurant(restaurant_id):
 # Delete an existing Restaurant
 @app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
+    restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
     # If user not logged in return to log in page
-    if 'username' not in login_session:
+    if 'username' not in login_session and restaurantToDelete.user_id != login_session:
         flash("Please Log In or Sign Up to Delete Restaurant")
         return redirect('/login')
-    restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if request.method == 'POST':
         session.delete(restaurantToDelete)
         session.commit()
@@ -278,9 +277,13 @@ def deleteRestaurant(restaurant_id):
 def restaurantMenu(restaurant_id):
     # Add all restaurants and menu items to page
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    creator = getUserInfo(restaurant.user_id)
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
-    # Render templates in folder and pass our queries above as arguments for our template
-    return render_template('menu.html', restaurant=restaurant, items=items)
+    # Show Public Page if User not logged in
+    if 'username' not in login_session or creator.id != login_session['user_id']:
+        return render_template('publicmenu.html', items=items, restaurant=restaurant, creator=creator)
+    else:
+        return render_template('menu.html', restaurant=restaurant, items=items, creator=creator)
 
 
 # Add a new Menu Item
