@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+		{% block signout %}
+			<li><a href="{{url_for('showLogin')}}"><i class="fa fa-user-o" aria-hidden="true"></i> Signin</a></li>
+		{% endblock %}
+
 {% block publicRestaurants %}
 
 

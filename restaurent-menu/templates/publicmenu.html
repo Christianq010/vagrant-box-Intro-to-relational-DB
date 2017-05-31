@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+        <!--Header Public Menu SignOut Button-->
+		{% block signout %}
+			<li><a href="{{url_for('showLogin')}}"><i class="fa fa-user-o" aria-hidden="true"></i> Signin</a></li>
+		{% endblock %}
+
 {% block publicMenu %}
 
 

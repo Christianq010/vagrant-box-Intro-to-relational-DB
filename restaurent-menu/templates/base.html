@@ -83,9 +83,16 @@
 				<div class="row">
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
 					<ul class="fh5co-social">
-					<li><a href="https://github.com/Christianq010/"><i class="fa fa-github" aria-hidden="true"></i></a></li>
-					<li><a href="https://www.linkedin.com/in/christianq010/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-					<li><a href="https://www.instagram.com/christiaanquyn/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+						<!--Show All Restaurants via Template-->
+						{% block signin %}
+    					{% endblock %}
+
+						<!--Show All Restaurants via Template-->
+						{% block signout %}
+    					{% endblock %}
+
+						<!--<li><a href="{{url_for('showLogin')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>Signin</a></li>-->
+    					<!--<li><a href="{{url_for('gdisconnect')}}"><i class="fa fa-sign-out" aria-hidden="true"></i>Signout</a></li>-->
 					</ul>
 					<div class="col-lg-12 col-md-12 text-center">
 						<h1 id="fh5co-logo"><a href="{{url_for('showRestaurants')}}">Restaurant Menu App </a></h1>
