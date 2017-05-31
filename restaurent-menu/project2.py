@@ -53,7 +53,8 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     # Obtain authorization code
-    code = request.data
+    request.get_data()
+    code = request.data.decode('utf-8')
 
     try:
         # Upgrade the authorization code into a credentials object
@@ -66,12 +67,15 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
-        # Check that the access token is valid.
+    # Check that the access token is valid.
     access_token = credentials.access_token
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
            % access_token)
     h = httplib2.Http()
-    result = json.loads(h.request(url, 'GET')[1])
+    response = h.request(url, 'GET')[1]
+    str_response = response.decode('utf-8')
+    result = json.loads(str_response)
+
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 500)
@@ -277,10 +281,13 @@ def deleteRestaurant(restaurant_id):
 def restaurantMenu(restaurant_id):
     # Add all restaurants and menu items to page
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    creator = getUserInfo(restaurant.user_id)
+    # Edit by user_id has a bug
+    # creator = getUserInfo(restaurant.user_id)
+    creator = session.query(User).all()
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
     # Show Public Page if User not logged in
-    if 'username' not in login_session or creator.id != login_session['user_id']:
+    #     if 'username' not in login_session or creator.id != login_session['user_id']:
+    if 'username' not in login_session:
         return render_template('publicmenu.html', items=items, restaurant=restaurant, creator=creator)
     else:
         return render_template('menu.html', restaurant=restaurant, items=items, creator=creator)
