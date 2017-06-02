@@ -59,7 +59,8 @@ We're using tools called Vagrant and VirtualBox to install and manage the VM. Yo
 * Run `vagrant reload` if you edit the Vagrant file or make other changes to code that would affect the virtual machine.
 * If you type `exit` (or `Ctrl-D`) at the shell prompt inside the VM, you will be logged out, and put back into your host computer's shell. To log back in, make sure you're in the same directory and type `vagrant ssh` again.
 * To exit Vagrant after the test simply type `logout`
-* To stop Vagrant running in the background when done type `vagrant halt`
+* To momentarily stop Vagrant running in the background when done type `vagrant halt`
+* `vagrant destroy` to destroy your virtual machine. The source code and the content of the data directory will remain unchanged.
 * If you reboot your computer, you will need to run `vagrant up` to restart the VM.
 
 ## View Projects
