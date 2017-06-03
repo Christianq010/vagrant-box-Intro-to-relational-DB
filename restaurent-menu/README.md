@@ -157,9 +157,12 @@ u'Pizza Place'
 ```
 
 
-### Running the WebServer
+### Running the WebServer using the Python Interpreter
 * On the virtual machine `cd` to the directory containing the file `webserver.py` and run `python webserver.py`
 * By default it is configured to serve on http://localhost:8080/hello on your browser.
+
+### Running via Foreman for deployment on Heroku
+* Once set up properly use the command `foreman start web` to launch app on http://localhost:5000
 
 ### Rendering Templates on Flask
 * Create a `templates` directory using `mkdir templates` in our flask project folder.
@@ -173,6 +176,10 @@ u'Pizza Place'
 * Using `.split()` on python - in `webserver.py` we use `.split(/)` which breaks/separates the string at each `/` and then assigns each value it an index number in an array 0,1,2,3 ..
 * To view a restaurants menu items in JSON - http://localhost:5000/restaurants/2/menu/JSON - or to view individual menu items by their id - http://localhost:5000/restaurants/1/menu/JSON
 
+
+### Instructions to deploy app on Heroku
+* https://www.udacity.com/wiki/ud330/deploy
+* Udacity Forum Post - https://discussions.udacity.com/t/steps-to-deploy-your-app-in-heroku-for-free/46351
 
 ----
 
