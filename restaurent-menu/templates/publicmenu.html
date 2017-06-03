@@ -16,6 +16,7 @@
 
             {% for user in creator %}
             <h3>Added by {{user.name}}</h3>
+            {% endfor %}
 
                 <!--Loop over our Menu Items-->
                 {% for i in items %}
@@ -27,7 +28,6 @@
                 </div>
                 {% endfor %}
 
-            {% endfor %}
         </article>
     </div>
 </div>

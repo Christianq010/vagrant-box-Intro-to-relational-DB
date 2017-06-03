@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from database_setup import Restaurant, Base, MenuItem
+from database_setup2 import Base, Restaurant, MenuItem
 
 engine = create_engine('postgres://umefpxupqegapj:b148406beb9cd286ee8249d24d288c33d68c2e30d1c78a7b3640493677a51f88@ec2-23-23-222-147.compute-1.amazonaws.com:5432/d3moeas20febdp')
 # Bind the engine to the metadata of the Base class so that the
@@ -144,7 +144,7 @@ menuItem2 = MenuItem(name="Chinese Dumplings", description="a common Chinese dum
 session.add(menuItem2)
 session.commit()
 
-menuItem3 = MenuItem(name="Gyoza", description="The most prominent differences between Japanese-style gyoza and Chinese-style jiaozi are the rich garlic flavor, which is less noticeable in the Chinese version, the light seasoning of Japanese gyoza with salt and soy sauce, and the fact that gyoza wrappers are much thinner",
+menuItem3 = MenuItem(name="Gyoza", description="The most prominent differences between Japanese-style gyoza and Chinese-style jiaozi are the rich garlic flavor, which is less noticeable in the Chinese version, the light seasoning of Japanese gyoza with salt and soy sauce.",
                      price="$9.95", course="Entree", restaurant=restaurant1)
 
 session.add(menuItem3)
@@ -361,7 +361,7 @@ menuItem1 = MenuItem(name="Chantrelle Toast", description="Crispy Toast with Ses
                      price="$5.95", course="Appetizer", restaurant=restaurant1)
 
 session.add(menuItem1)
-session.commit
+session.commit()
 
 menuItem1 = MenuItem(name="Guanciale Chawanmushi", description="Japanese egg custard served hot with spicey Italian Pork Jowl (guanciale)",
                      price="$6.95", course="Dessert", restaurant=restaurant1)
