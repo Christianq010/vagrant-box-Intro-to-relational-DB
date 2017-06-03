@@ -6,6 +6,9 @@
 This repository contains Web applications that queries a database and then dynamically generates complete web pages and API endpoints.
 These projects are set up to use a virtual machine - Vagrant (VM) to run our database server.
 
+### *Restaurant Menu App Deployed via Heroku here* - https://restaurant-menu-app2.herokuapp.com/
+
+
 ### About Our Projects
 
 #### *1. Forum*
