@@ -161,8 +161,16 @@ u'Pizza Place'
 * On the virtual machine `cd` to the directory containing the file `webserver.py` and run `python webserver.py`
 * By default it is configured to serve on http://localhost:8080/hello on your browser.
 
-### Running via Foreman for deployment on Heroku
+### Running via Foreman for localhost deployment on Heroku
 * Once set up properly use the command `foreman start web` to launch app on http://localhost:5000
+
+### Push changes to our Heroku Live Project
+```
+ git init
+ git add .
+ git commit -m“Initial Commit”
+ git push heroku master
+```
 
 ### Rendering Templates on Flask
 * Create a `templates` directory using `mkdir templates` in our flask project folder.
