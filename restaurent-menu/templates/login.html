@@ -35,6 +35,89 @@
 </head>
 <body>
 
+
+	<!--Facebook Log in Script-->
+	<script>
+
+        // This is called with the results from from FB.getLoginStatus().
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                testAPI();
+            } else {
+                // The person is not logged into your app or we are unable to tell.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                    'into this app.';
+            }
+        }
+
+        // This function is called when someone finishes with the Login
+        // Button.  See the onlogin handler attached to it in the sample
+        // code below.
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
+
+	  window.fbAsyncInit = function() {
+		FB.init({
+		  appId      : '142950832917276',
+		  cookie     : true,
+		  xfbml      : true,
+		  version    : 'v2.8'
+		});
+		FB.AppEvents.logPageView();
+	  };
+
+	  (function(d, s, id){
+		 var js, fjs = d.getElementsByTagName(s)[0];
+		 if (d.getElementById(id)) {return;}
+		 js = d.createElement(s); js.id = id;
+		 js.src = "//connect.facebook.net/en_US/sdk.js";
+		 fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+
+      // Here we run a very simple test of the Graph API after login is
+      // successful.  See statusChangeCallback() for when this call is made.
+      function sendTokenToServer() {
+          var access_token = FB.getAuthResponse()['accessToken'];
+          console.log(access_token);
+          console.log('Welcome!  Fetching your information.... ');
+          FB.api('/me', function(response) {
+              console.log('Successful login for: ' + response.name);
+              $.ajax({
+                  type: 'POST',
+                  url: '/fbconnect?state={{STATE}}',
+                  processData: false,
+                  data: access_token,
+                  contentType: 'application/octet-stream; charset=utf-8',
+                  success: function(result) {
+                      // Handle or verify the server response if necessary.
+                      if (result) {
+                          // Hide the sign-in button now that the user is authorized
+                          $('#signInButton').toggle();
+                          $('#fbLogin').toggle();
+                          $('#result').html(result + '</br><h2>Redirecting...</h2>')
+                          setTimeout(function() {
+                              window.location.href = "/restaurant";
+                          }, 4000);
+                      } else {
+                          $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                      }
+                  }
+              });
+          });
+      }
+
+	</script>
+
 	<!--Hamburger Menu-->
 	<div id="fh5co-offcanvas">
 			<a href="#" class="fh5co-close-offcanvas js-fh5co-close-offcanvas"><span><i class="fa fa-window-close"></i> <span>Close</span></span></a>
@@ -120,12 +203,19 @@
             <div class="omb_login">
 				<h3 class="omb_authTitle">Login or Sign up to Add <a href="{{url_for('showRestaurants')}}">Restaurants</a> and Menu Items.</h3>
                 <div class="row omb_row-sm-offset-3 omb_socialButtons text-center">
-                    <div class="">
-                        <a href="#" class="zocial facebook">
-                            <i class="fa fa-facebook visible-xs"></i>
-                            <span class="hidden-xs">Continue with Facebook</span>
-                        </a>
-                    </div>
+                    <!--<span class="zocial facebook"-->
+                          <!--id="fbLogin"-->
+                          <!--scope="public_profile,email"-->
+                          <!--onlogin="sendTokenToServer();">-->
+                        <!--<i class="fa fa-facebook visible-xs"></i>-->
+                        <!--<span class="hidden-xs">Continue with Facebook</span>-->
+					<!--</span>-->
+
+
+                    <fb:login-button id="fbLogin" scope="public_profile,email" onlogin="sendTokenToServer();">
+                        <a href='javascript:sendTokenToServer()'>Continue with Facebook</a>
+                    </fb:login-button>
+
                     <br>
                     <!--<div class="col-xs-4 col-sm-2">-->
                         <!--<a href="#" class="btn btn-lg btn-block omb_btn-twitter">-->
@@ -133,6 +223,7 @@
                             <!--<span class="hidden-xs">Twitter</span>-->
                         <!--</a>-->
                     <!--</div>-->
+                    <br>
                     <div id="signinButton">
                         <span class="zocial googleplus g-signin"
 								style="color: #fff;"
