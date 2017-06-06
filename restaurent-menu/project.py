@@ -192,6 +192,7 @@ def gdisconnect():
         flash('Failed to revoke token for given user.')
         return render_template('logout.html')
 
+# Log in using facebook
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
     if request.args.get('state') != login_session['state']:
@@ -260,6 +261,39 @@ def fbconnect():
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
+
+# Disconnect from Facebook
+@app.route('/fbdisconnect')
+def fbdisconnect():
+    facebook_id = login_session['facebook_id']
+    url = 'https://graph.facebook.com/%s/permissions' % facebook_id
+    h = httplib2.Http()
+    result = h.request(url, 'DELETE')[1]
+
+
+# Global disconnect function
+@app.route('/disconnect')
+def disconnect():
+    if 'provider' in login_session:
+        if login_session['provider'] == 'google':
+            gdisconnect()
+            del login_session['gplus_id']
+            del login_session['credentials']
+        if login_session['provider'] == 'facebook':
+            fbdisconnect()
+            del login_session['facebook_id']
+
+        del login_session['username']
+        del login_session['email']
+        del login_session['picture']
+        del login_session['user_id']
+        del login_session['provider']
+
+        flash("You've been successfully logged out.")
+        return render_template('logout.html')
+    else:
+        flash("You weren't signed in.")
+        return render_template('logout.html')
 
 # Show Restaurant menu Page in JSON
 @app.route('/restaurant/<int:restaurant_id>/menu/JSON')
