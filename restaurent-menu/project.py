@@ -162,35 +162,22 @@ def getUserID(email):
 # DISCONNECT - Revoke a current user's token and reset their login_session
 @app.route('/gdisconnect')
 def gdisconnect():
-    access_token = login_session['credentials']
-    print 'In gdisconnect access token is %s', access_token
-    print 'User name is: '
-    print login_session['username']
-    if access_token is None:
-        print 'Access Token is None'
+    # Only disconnect a connected user
+    credentials = login_session.get('credentials')
+    if credentials is None:
         response = make_response(json.dumps('Current user not connected.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['credentials']
+    access_token = credentials.access_token
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
-    print 'result is '
-    print result
-    if result['status'] == '200':
-        del login_session['credentials']
-        del login_session['gplus_id']
-        del login_session['username']
-        del login_session['email']
-        del login_session['picture']
-        response = make_response(json.dumps('Successfully disconnected.'), 200)
+
+    if result['status'] != '200':
+        # For some reason token was Invalid
+        response = make_response(json.dumps('Failed to revoke token for user'), 400)
         response.headers['Content-Type'] = 'application/json'
-        flash('Successfully disconnected')
-        return render_template('logout.html')
-    else:
-        response = make_response(json.dumps('Failed to revoke token for given user.', 400))
-        response.headers['Content-Type'] = 'application/json'
-        flash('Failed to revoke token for given user.')
-        return render_template('logout.html')
+        return response
 
 # Log in using facebook
 @app.route('/fbconnect', methods=['POST'])
@@ -256,8 +243,7 @@ def fbconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius:\
-        150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
