@@ -168,7 +168,7 @@ u'Pizza Place'
 ```
  git init
  git add .
- git commit -m“Initial Commit”
+ git commit -m “Initial Commit”
  git push heroku master
 ```
 
@@ -194,3 +194,10 @@ u'Pizza Place'
 #### Primary Key / Foreign Keys in Relational DBs
 * In the context of relational databases, a foreign key is a field (or collection of fields) in one table that uniquely identifies a row of another table or the same table.
 * In simpler words, the foreign key is defined in a second table, but it refers to the primary key in the first table.
+
+### ToDo's:
+* Add flash message when successfully logged in via Facebook and re-directed to home page
+* Add custom Login / Signup for the site.
+* Further improve UI/UX experience.
+* Add pictures posts.
+* Add search capability.
